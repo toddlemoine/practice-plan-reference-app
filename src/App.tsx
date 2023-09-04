@@ -2,7 +2,7 @@ import React, { MouseEventHandler, useState } from 'react';
 import './App.css';
 import { AppState, Plan } from './types';
 import { usePlanStore } from './stores/planStore';
-import { Modal, PlanForm } from './components';
+import { Button, Modal, PlanForm } from './components';
 
 function App() {
     const [appState, setAppState] = useState<AppState>({ activePlan: null });
@@ -41,14 +41,12 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <h1>Plans</h1>
-            <div className="toolbar">
-                <button className="add" onClick={handleAddPlan}>
-                    Add Plan
-                </button>
+        <div className="w-full p-6">
+            <h1 className="text-3xl font-bold">Plans</h1>
+            <div className="my-2">
+                <Button onClick={handleAddPlan}>Add Plan</Button>
             </div>
-            <ol>
+            <ol className="list-decimal">
                 {plans.map(plan => (
                     <li key={plan.id}>
                         <div className="plan">
@@ -60,18 +58,18 @@ function App() {
                             </div>
                         </div>
                         <div>
-                            <button
+                            <Button
                                 data-id={plan.id}
                                 onClick={handleEditPlanClick}
                             >
                                 Edit
-                            </button>
-                            <button
+                            </Button>
+                            <Button
                                 data-id={plan.id}
                                 onClick={handleRemovePlanClick}
                             >
                                 Remove
-                            </button>
+                            </Button>
                         </div>
                     </li>
                 ))}

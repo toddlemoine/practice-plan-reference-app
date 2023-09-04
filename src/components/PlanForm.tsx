@@ -2,9 +2,16 @@ import React, {
     ChangeEventHandler,
     FC,
     MouseEventHandler,
+    PropsWithChildren,
     useState,
 } from 'react';
 import { Plan } from '../types';
+import { TextInput } from './TextInput';
+import { Button } from './Button';
+
+const FormRow: FC<PropsWithChildren<{}>> = ({ children }) => {
+    return <div className="grid grid-rows-1">{children}</div>;
+};
 
 interface Props {
     plan: Plan;
@@ -71,45 +78,47 @@ export const PlanForm: FC<Props> = ({ plan, onSave }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Plan</h2>
-            <div className="form-row">
+            <h2 className="text-lg">Plan</h2>
+            <FormRow>
                 <label htmlFor="name">Name</label>
-                <input
+                <TextInput
                     id="name"
                     name="name"
                     value={formValues.name}
                     onChange={handleNameChange}
                 />
-            </div>
-            <div className="form-row">
+            </FormRow>
+            <FormRow>
                 <label>Exercises</label>
                 <div>
-                    <button onClick={handleAddExerciseClick}>
+                    <Button onClick={handleAddExerciseClick}>
                         Add Exercise
-                    </button>
+                    </Button>
                 </div>
-                {formValues.tone.exercises.map((exercise, index) => (
-                    <div key={index}>
-                        <input
-                            id={`ex${index + exercise}`}
-                            value={exercise}
-                            onChange={e =>
-                                handleExerciseChange(e.target.value, index)
-                            }
-                        />
-                        <button
-                            onClick={e => {
-                                e.preventDefault();
-                                removeExerciseAt(index);
-                            }}
-                        >
-                            Remove
-                        </button>
-                    </div>
-                ))}
-            </div>
+                <ol className="list-decimal ml-4">
+                    {formValues.tone.exercises.map((exercise, index) => (
+                        <li key={index}>
+                            <TextInput
+                                id={`ex${index + exercise}`}
+                                value={exercise}
+                                onChange={e =>
+                                    handleExerciseChange(e.target.value, index)
+                                }
+                            />
+                            <Button
+                                onClick={e => {
+                                    e.preventDefault();
+                                    removeExerciseAt(index);
+                                }}
+                            >
+                                Remove
+                            </Button>
+                        </li>
+                    ))}
+                </ol>
+            </FormRow>
             <footer>
-                <button type="submit">Save</button>
+                <Button type="submit">Save</Button>
             </footer>
         </form>
     );

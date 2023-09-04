@@ -1,4 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
+import { Button } from './Button';
 
 interface Props {
     onClose: () => void;
@@ -6,10 +7,10 @@ interface Props {
 
 export const Modal: FC<PropsWithChildren<Props>> = ({ children, onClose }) => {
     return (
-        <div className="modal">
-            <button className="closeButton" onClick={onClose}>
+        <div className="shadow rounded w-100 p-4 relative">
+            <Button className="absolute right-4" onClick={onClose}>
                 Close
-            </button>
+            </Button>
             {children}
         </div>
     );
