@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Plan } from '../types';
-
-const randomId = () => Math.random().toString(36).substr(2, 9);
+import { randomId } from './utils';
 
 const _store = new Map<string, Plan>();
 

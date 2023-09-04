@@ -3,11 +3,14 @@ import './App.css';
 import { AppState, Plan } from './types';
 import { usePlanStore } from './stores/planStore';
 import { Button, Modal, PlanForm } from './components';
+import { useLocalStoragePlanStore } from './stores/localStoragePlanStore';
 
 function App() {
     const [appState, setAppState] = useState<AppState>({ activePlan: null });
+    // const { plans, createPlan, updatePlan, removePlan, getPlan, initialPlan } =
+    //     usePlanStore();
     const { plans, createPlan, updatePlan, removePlan, getPlan, initialPlan } =
-        usePlanStore();
+        useLocalStoragePlanStore();
 
     const handleAddPlan = () => {
         setAppState({ ...appState, activePlan: '' });
